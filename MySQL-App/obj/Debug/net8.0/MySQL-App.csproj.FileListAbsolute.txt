@@ -35,3 +35,4 @@
 /Users/James.Flynn/Documents/MySQL-App/MySQL-App/obj/Debug/net8.0/MySQL-App.pdb
 /Users/James.Flynn/Documents/MySQL-App/MySQL-App/obj/Debug/net8.0/MySQL-App.genruntimeconfig.cache
 /Users/James.Flynn/Documents/MySQL-App/MySQL-App/obj/Debug/net8.0/ref/MySQL-App.dll
+/Users/James.Flynn/Documents/MySQL-App/MySQL-App/obj/Debug/net8.0/MySQL-App.sourcelink.json
