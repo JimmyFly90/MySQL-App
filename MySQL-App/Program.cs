@@ -1,58 +1,37 @@
 ﻿using System;
+using System.Configuration;
 using MySql.Data.MySqlClient;
+using Mysqlx.Crud;
 
-public class MySql_Practice_1
+namespace MySQL_App
 {
-    public static string connectionString = "server=localhost;user=root;password=Cadhla24!;database=school;";
-
-    public static void Main(string[] args)
+    public class Program
     {
-        PopulateDatabase();
-    }
+        public static string connectionString = "server=localhost;user=root;password=Cadhla24!;database=db1;";
 
+        public static void Main(string[] args)
 
-    public static void PopulateDatabase()
-    {
-        using (MySqlConnection connection = new MySqlConnection(connectionString))
         {
-            try
+            using(MySqlConnection connection  = new MySqlConnection(connectionString))
             {
                 connection.Open();
-                Console.WriteLine("Successfully Connected To The MySQL Server");
 
-                // Delete table if already created previously, so remove if creating for first time in program
-                new MySqlCommand("DROP TABLE teachers", connection).ExecuteNonQuery();
+                string commandText = "CREATE TABLE books (id INT PRIMARY KEY AUTO_INCREMENT, book_name VARCHAR(64), author_name VARCHAR(32), pages INT, available BOOL);";
+                MySqlCommand command = new MySqlCommand(commandText, connection);
+                command.ExecuteNonQuery();
+                Console.WriteLine("Table has been created.");
 
-                string tableCmdText = "CREATE TABLE teachers (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(30), age INT, experience FLOAT);";
-                new MySqlCommand(tableCmdText, connection).ExecuteNonQuery();
-                Console.WriteLine("Create table 'teachers'.");
-                
-                new MySqlCommand("INSERT INTO teachers (name, age, experience) VALUES ('John Smith', 35, 5.5)", connection).ExecuteNonQuery();
-                new MySqlCommand("INSERT INTO teachers (name, age, experience) VALUES ('Anna Johnson', 40, 8.2)", connection).ExecuteNonQuery();
-                new MySqlCommand("INSERT INTO teachers (name, age, experience) VALUES ('Robert Davis', 32, 3.1)", connection).ExecuteNonQuery();    
 
-                Console.WriteLine("Three rows have been added to the table.");
-        
-                var queryCmd = new MySqlCommand("SELECT * FROM teachers;", connection);
-                
-                using (MySqlDataReader reader = queryCmd.ExecuteReader())
-
-                while (reader.Read())
+                for(int i=0; i < 100; i++)
                 {
-                    int id = reader.GetInt32("id");
-                    string name = reader.GetString("name");
-                    int age = reader.GetInt32("age");
-                    float exp = reader.GetFloat("experience");
-
-                Console.WriteLine($">> ID: {id}, NAME: {name}, AGE: {age}, EXPERIENCE: {exp}");
+                    int pages = new Random().Next(100, 400);
+                    int available = new Random().Next(0, 2);
+                    commandText = $"INSERT INTO books (book_name, author_name, pages, available) VALUES ('Book {i * 2}', 'Author Name', {pages}, {available});";
+                    command = new MySqlCommand(commandText, connection);
+                    command.ExecuteNonQuery();
+                    Console.WriteLine($"Row {i +1} inserted");
                 }
-
-            }
-            
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
             }
         }
     }
-}     
+}
