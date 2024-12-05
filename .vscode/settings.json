@@ -6,10 +6,10 @@
                 "enableSsl": "Disabled"
             },
             "previewLimit": 50,
-            "server": "127.0.0.1",
+            "server": "localhost",
             "port": 33060,
             "driver": "MySQL",
-            "name": "MySQL Local",
+            "name": "MySql",
             "database": "db1",
             "username": "root",
             "password": "Cadhla24!",
