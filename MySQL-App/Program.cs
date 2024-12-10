@@ -13,23 +13,14 @@ public class Program
         {
             connection.Open();
 
-            string commandText = "SELECT id, name, category, price, stock_quantity FROM store WHERE stock_quantity < 100;";
+            string commandText = "UPDATE store SET stock_quantity = 200 WHERE stock_quantity < 100;";
             MySqlCommand command = new MySqlCommand(commandText, connection);
 
-            using (MySqlDataReader reader = command.ExecuteReader())
-            {
-                while(reader.Read())
-                {
-                    int id = reader.GetInt32("id");
-                    string name = reader.GetString("name");
-                    string category = reader.GetString("category");
-                    int price = reader.GetInt32("price");
-                    int quantity = reader.GetInt32("stock_quantity");
+            command.ExecuteNonQuery();
 
-                    Console.WriteLine($"ID: {id}, Item Name: {name}, Category: {category}, Price: {price}, Quantity: {quantity}");
-                }
-            }
+            Console.WriteLine("Executed.");
         }
-            
     }
 }
+            
+    
