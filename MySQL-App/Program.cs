@@ -13,12 +13,12 @@ public class Program
         {
             connection.Open();
 
-            string commandText = "UPDATE store SET stock_quantity = 200 WHERE stock_quantity < 100;";
+            string commandText = "DELETE FROM store WHERE category = 'vegetables'";
             MySqlCommand command = new MySqlCommand(commandText, connection);
 
             command.ExecuteNonQuery();
 
-            Console.WriteLine("Executed.");
+            Console.WriteLine("Products deleted.");
         }
     }
 }
